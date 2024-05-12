@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <section id="live-video">
+        {% comment %} <h2>View</h2> {% endcomment %}
+        <div class="video-container">
+            <video width="640" height="480" preload controls>
+                <source src="{% static video_path %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+{% endblock %}

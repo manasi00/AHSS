@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <section id="live-video">
+        <h2>🔴 Live</h2>
+        <div class="video-container">
+            {% comment %} {%
+                import cv2
+                cap = cv2.VideoCapture(0)
+                ret, frame = cap.read()
+                
+                if ret:
+                    cv2.imshow('frame', frame)
+                    cv2.waitKey(0)
+                    cv2.destroyAllWindows()
+                else:
+                    print('Error: Cannot read video')
+                
+                cap.release()
+            %} {% endcomment %}
+        </div>
+    </section>
+{% endblock %}
