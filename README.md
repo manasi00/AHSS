@@ -55,7 +55,7 @@ python migrate.py migrate accounts
 ```
 
 
-Open 3 terminal and activate virtual environment by this command
+Open 3 terminal in code editor and activate virtual environment by this command
 ----
 ```
 Set-ExecutionPolicy Unrestricted -Scope Process
