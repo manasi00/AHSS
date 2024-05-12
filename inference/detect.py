@@ -11,6 +11,10 @@ import os
 import sqlite3
 import sql
 import uuid  # Import the uuid module to generate unique identifiers
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
 
 class ObjectDetection:
     def __init__(self, capture_index, line_start, line_end):
@@ -131,6 +135,9 @@ class ObjectDetection:
                     except sqlite3.Error as e:
                         print(e)
                     conn.close()
+                    
+                    # Send email with the attached image
+                    self.send_email(imag_filename)
                 
             elif centroid[0] > self.line_end[0]:
                 self.id_direction[objectID] = 'out'
@@ -166,6 +173,34 @@ class ObjectDetection:
         cv2.putText(im0, f'Count Out: {count_out}', (15, 160), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 2, bottomLeftOrigin=False)
 
 
+    def send_email(self, image_path):
+        # Email configuration
+        sender_email = "guardian360.ahss@gmail.com"  # Your email
+        receiver_email = "maanasee341@gmail.com"  # Receiver email
+        password = "ijbw fhnt nxmt bdge"  # Your email password
+
+        # Create a multipart message and set headers
+        message = MIMEMultipart()
+        message["From"] = sender_email
+        message["To"] = receiver_email
+        message["Subject"] = "Person Detected Inside"
+
+        # Add body to email
+        body = "A person has been detected inside."
+        message.attach(MIMEText(body, "plain"))
+
+        # Add image attachment
+        with open(image_path, "rb") as attachment:
+            image_part = MIMEImage(attachment.read(), _subtype="jpg")
+        image_part.add_header("Content-Disposition", "attachment", filename=os.path.basename(image_path))
+        message.attach(image_part)
+
+        # Log in to server using secure context and send email
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+            print("Email sent successfully")
+
     def __call__(self):
         # Executes object detection on video frames from a specified camera index, plotting bounding boxes and returning modified frames.
         cap = cv2.VideoCapture(self.capture_index)
@@ -198,7 +233,6 @@ class ObjectDetection:
             raw_image = im0.copy()
             file_result.write(im0)
             results = self.predict(im0)
-            print(results)
             im0, class_ids = self.plot_bboxes(results, im0)
 
             self.line_counter(im0, class_ids, results, raw_image)
