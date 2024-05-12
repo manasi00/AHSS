@@ -36,6 +36,8 @@ pip install opencv-python
 pip install numpy
 
 pip install django
+
+pip install email
 ```
 
 Run Migrations
