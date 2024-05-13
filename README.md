@@ -46,12 +46,6 @@ Run Migrations
 python manage.py makemigrations
 python manage.py migrate
 
-python manage.py makemigrations frontend
-python manage.py migrate frontend
-
-python manage.py makemigrations inference
-python manage.py migrate inference
-
 python manage.py makemigrations accounts
 python manage.py migrate accounts
 ```
