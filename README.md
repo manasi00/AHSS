@@ -43,17 +43,17 @@ pip install email
 Run Migrations
 ----
 ```
-python migrate.py makemigrations
-python migrate.py migrate
+python manage.py makemigrations
+python manage.py migrate
 
-python migrate.py makemigrations frontend
-python migrate.py migrate frontend
+python manage.py makemigrations frontend
+python manage.py migrate frontend
 
-python migrate.py makemigrations inference
-python migrate.py migrate inference
+python manage.py makemigrations inference
+python manage.py migrate inference
 
-python migrate.py makemigrations accounts
-python migrate.py migrate accounts
+python manage.py makemigrations accounts
+python manage.py migrate accounts
 ```
 
 
